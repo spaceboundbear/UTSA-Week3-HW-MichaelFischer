@@ -7,7 +7,6 @@ function writePassword() {
   var passwordText = document.querySelector("#password");
 
   passwordText.value = password;
-
 }
 
 // Add event listener to generate button
@@ -16,10 +15,6 @@ generateBtn.addEventListener("click", writePassword);
 // need variables for prompts/alerts, need prompt for password length, need boolean for rest
 // passLength needs to be empty string so answer in prompt can fill
 var passLength = "";
-var passChar;
-var passNumber;
-var passUpper;
-var passLower;
 
 function generatePassword() {
   // going to try and make multiple functions to go inside this function
@@ -49,20 +44,47 @@ function generatePassword() {
 
 
 // user input for rest
-  var upperAlert = confirm("Would you like upper case letters?");
-  var lowerAlert = confirm("Would you like lower case letters?");
-  var numbersAlert = confirm("Would you like numbers?");
-  var charactersAlert = confirm("Would you like special characters?");
-
   // need another loop for outside parameter
   // need a function that makes it so if all 4 parameters aren't chosen it loops back and asks again.
+  // extensive web searching has led me to 'do while' statements
+  // if / else inside a do / while (i'm the best)
 
-  while ( upperAlert === false && lowerAlert === false && numbersAlert === false && charactersAlert === false) {
-    alert("Gotta choose at least one, friend");
-    //trying not to have to type out the alert variables again.
-    //not sure if i have a choice
+  do {
+    var chooseAlert = alert("You must choose at least one parameter, click OK to continue");
+    var upperAlert = confirm("Would you like upper case letters?");
+    if (upperAlert === true) {
+      alert("You have chosen to include uppercase letters")
+    } else {
+      alert("You have chosen not to include uppercase letters")
+    }
+    var lowerAlert = confirm("Would you like lower case letters?");
+    if (lowerAlert === true) {
+      alert("You have chosen to include lowercase letters")
+    } else {
+      alert("You have chosen not to include lowercase letters")
+    }
+    var numbersAlert = confirm("Would you like numbers?");
+    if (numbersAlert === true) {
+      alert("You have chosen to include numbers")
+    } else {
+      alert("You have chosen not to include numbers")
+    }
+    var charactersAlert = confirm("Would you like special characters?");
+    if (upperAlert === true) {
+      alert("You have chosen to include special characters")
+    } else {
+      alert("You have chosen not to include special characters")
+    }
+}
+  while (upperAlert === false && lowerAlert === false && numbersAlert === false && charactersAlert === false) {
+    }
+      console.log (chooseAlert);
+      console.log (upperAlert);
+      console.log (lowerAlert);
+      console.log (numbersAlert);
+      console.log (charactersAlert);
 
-  }
+  //trying not to have to type out the alert variables again.
 
 
   // need to make arrays, and then .concat based on user specified parameters
@@ -76,7 +98,7 @@ function generatePassword() {
 
   // thank you to will and jeremy for teaching me .split
 
-  // variable is an empty array, making global for multiple function reference
+  // variable must be an empty array, making global for multiple function reference
   var passwordArray = [];
   // if alert variable is confirmed
   if (upperAlert === true) {

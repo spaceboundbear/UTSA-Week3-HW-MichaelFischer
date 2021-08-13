@@ -17,13 +17,7 @@ generateBtn.addEventListener("click", writePassword);
 var passLength = "";
 
 function generatePassword() {
-  // going to try and make multiple functions to go inside this function
-  // edit, can't get it to spit out a definition, maybe missing a global variable
-  // edit 2, can get it to work on one function, but looks messy. 
-
-//make a function for the first prompt, how long is password going to be
-//only time user has to type something in.
-
+  //make a function for the first prompt, how long is password going to be
   passLength = prompt(
     "How long would you like your password to be? Type 8-128",
     "64"
@@ -42,55 +36,50 @@ function generatePassword() {
   // show user how many characters password will have
   alert("You've Chosen " + passLength + " Characters");
 
-
-// user input for rest
-  // need another loop for outside parameter
   // need a function that makes it so if all 4 parameters aren't chosen it loops back and asks again.
-  // extensive web searching has led me to 'do while' statements
-  // if / else inside a do / while (i'm the best)
-
+  // extensive web searching has led me to 'do/while' statements
   do {
-    var chooseAlert = alert("You must choose at least one parameter, click OK to continue");
+    var chooseAlert = alert(
+      "You must choose at least one of the next 4 parameters, click OK to continue"
+    );
     var upperAlert = confirm("Would you like upper case letters?");
     if (upperAlert === true) {
-      alert("You have chosen to include uppercase letters")
+      alert("You have chosen to include uppercase letters");
     } else {
-      alert("You have chosen not to include uppercase letters")
+      alert("You have chosen not to include uppercase letters");
     }
     var lowerAlert = confirm("Would you like lower case letters?");
     if (lowerAlert === true) {
-      alert("You have chosen to include lowercase letters")
+      alert("You have chosen to include lowercase letters");
     } else {
-      alert("You have chosen not to include lowercase letters")
+      alert("You have chosen not to include lowercase letters");
     }
     var numbersAlert = confirm("Would you like numbers?");
     if (numbersAlert === true) {
-      alert("You have chosen to include numbers")
+      alert("You have chosen to include numbers");
     } else {
-      alert("You have chosen not to include numbers")
+      alert("You have chosen not to include numbers");
     }
     var charactersAlert = confirm("Would you like special characters?");
-    if (upperAlert === true) {
-      alert("You have chosen to include special characters")
+    if (charactersAlert === true) {
+      alert("You have chosen to include special characters");
     } else {
-      alert("You have chosen not to include special characters")
+      alert("You have chosen not to include special characters");
     }
-}
-  while (upperAlert === false && lowerAlert === false && numbersAlert === false && charactersAlert === false) {
-    }
-      console.log (chooseAlert);
-      console.log (upperAlert);
-      console.log (lowerAlert);
-      console.log (numbersAlert);
-      console.log (charactersAlert);
+  } while (
+    upperAlert === false &&
+    lowerAlert === false &&
+    numbersAlert === false &&
+    charactersAlert === false
+  );
 
-  //trying not to have to type out the alert variables again.
-
+  console.log(chooseAlert);
+  console.log(upperAlert);
+  console.log(lowerAlert);
+  console.log(numbersAlert);
+  console.log(charactersAlert);
 
   // need to make arrays, and then .concat based on user specified parameters
-  // making global for reference in multiple functions
-  // arrays are working according to console
-
   var lowerArr = "abcdefghijklmnopqrstuvwxyz".split("");
   var upperArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   var numbersArr = "0123456789".split("");
@@ -100,9 +89,10 @@ function generatePassword() {
 
   // variable must be an empty array, making global for multiple function reference
   var passwordArray = [];
+
   // if alert variable is confirmed
+  // the corresponding array is concated into the passwordArray variable
   if (upperAlert === true) {
-    // the corresponding array is concated into the passwordArray variable
     passwordArray = passwordArray.concat(upperArr);
   }
 
@@ -120,13 +110,38 @@ function generatePassword() {
 
   console.log(passwordArray);
 
-  // now lets add all of this together, and do some math.
   var pass = "";
 
+  //this forces all variables to be used if they are selected, but takes out the randomness
   for (var i = 0; i < passLength; i++) {
-    pass = pass + passwordArray[Math.floor(Math.random() * passwordArray.length)];
-    console.log(pass);
+    if (upperAlert && pass.length < passLength) {
+      pass = pass + upperArr[Math.floor(Math.random() * upperArr.length)];
+    }
+    if (lowerAlert && pass.length < passLength) {
+      pass = pass + lowerArr[Math.floor(Math.random() * lowerArr.length)];
+    }
+    if (numbersAlert && pass.length < passLength) {
+      pass = pass + numbersArr[Math.floor(Math.random() * numbersArr.length)];
+    }
+    if (charactersAlert && pass.length < passLength) {
+      pass =
+        pass + charactersArr[Math.floor(Math.random() * charactersArr.length)];
+    }
   }
-  return pass;
+
+  var randomPassword = pass.toString();
+  console.log(randomPassword);
+  splitPassword = randomPassword.split("");
+
+  shuffleArray(splitPassword);
+  console.log(splitPassword);
+
+  var finalPass = splitPassword.join("");
+  console.log(finalPass);
+
+  return finalPass;
 }
 
+function shuffleArray(inputArray) {
+  inputArray.sort(() => Math.random() - 0.05);
+}

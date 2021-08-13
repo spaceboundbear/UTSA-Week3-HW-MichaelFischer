@@ -1,7 +1,20 @@
 
 Notes:
 Had a lot of trouble getting this to run, and even when it did, the code was sloppy.
-I worked a lot on cleaning the code and researching things (mostly looping prompts [do/while] and concat arrays)
+I worked a lot on cleaning the code and researching things (do/while loops / concat arrays / .split() / .match())
+This project was tough! I learned a lot about how powerful javascript is, it's just figuring out (and googling) how to use it to your advantage. Javascript has all the answers, you just need to know how to ask.
+
+
+Update #1:
+I encountered a problem where even if i selected all the parameters, there was no guarantee it would include them all, especially on smaller passwords. I've fixed that issue by forcing them to include characters from every parameter selected.
+
+Update #2:
+Although I succeeded in forcing all selected parameters to show up, it took out a lot of the randomness of the password, causing the password to generate an upper case, lower case, special char, and number over and over again. I've fixed that by taking the password generated and making those characters an array, and then randomizing that to generate a password that contains all parameters selected in a random order.
+
+Update #3:
+Encountered a problem where the prompt that asks for password length, it would accept alphabetic and special characters which would cause the password generator to return undefined. Fixed using a while loop and .match() to make sure the prompt answer only includes numbers.
+
+Also cleaned up a lot of random comments that weren't valuable to the code, mostly just thinking out loud, so to speak.
 
 
 Link to application:

@@ -13,18 +13,17 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 // need variables for prompts/alerts, need prompt for password length, need boolean for rest
-// variable needs to be empty string so answer in prompt can fill
+// passLength needs to be empty string so answer in prompt can fill
 var passLength = "";
 
 function generatePassword() {
-
-//first prompt, how long is password going to be
+  //make a function for the first prompt, how long is password going to be
   passLength = prompt(
     "How long would you like your password to be? Type 8-128",
     "64"
   );
-
-  // need to make a loop here, make sure answer is between 8-128
+  // need to make a loop here, has to make sure answer is between 8-128
+  // update: must use while or will only loop once
   while (passLength <= 7 || passLength >= 129) {
     alert("Password length must be between 8-128 characters");
     passLength = prompt(
@@ -32,63 +31,74 @@ function generatePassword() {
       "64"
     );
   }
+  while (!passLength.match("[0-9]")) {
+    alert("Input must be numbers only")
+    passLength = prompt(
+      "How long would you like your password to be? Type 8-128",
+      "64"
+    );
+  }
+
   // show user how many characters password will have
-  alert("You have chosen " + passLength + " characters");
+  alert("You've Chosen " + passLength + " Characters");
 
-  // need statement that makes it so if all 4 parameters aren't chosen it loops back and asks user again.
+  // need a function that makes it so if all 4 parameters aren't chosen it loops back and asks again.
   // extensive web searching has led me to 'do/while' statements
-  // if/else inside a do/while (not sure if optimal, but easy to understand)
-  // could probably make a series of functions to avoid having to type out if/else for every alert, may try later.
-
   do {
-    var chooseAlert = alert("You must choose at least one parameter, click OK to continue");
+    var chooseAlert = alert(
+      "You must choose at least one of the next 4 parameters, click OK to continue"
+    );
     var upperAlert = confirm("Would you like upper case letters?");
     if (upperAlert === true) {
-      alert("You have chosen to include uppercase letters")
+      alert("You have chosen to include uppercase letters");
     } else {
-      alert("You have chosen not to include uppercase letters")
+      alert("You have chosen not to include uppercase letters");
     }
     var lowerAlert = confirm("Would you like lower case letters?");
     if (lowerAlert === true) {
-      alert("You have chosen to include lowercase letters")
+      alert("You have chosen to include lowercase letters");
     } else {
-      alert("You have chosen not to include lowercase letters")
+      alert("You have chosen not to include lowercase letters");
     }
     var numbersAlert = confirm("Would you like numbers?");
     if (numbersAlert === true) {
-      alert("You have chosen to include numbers")
+      alert("You have chosen to include numbers");
     } else {
-      alert("You have chosen not to include numbers")
+      alert("You have chosen not to include numbers");
     }
     var charactersAlert = confirm("Would you like special characters?");
-    if (upperAlert === true) {
-      alert("You have chosen to include special characters")
+    if (charactersAlert === true) {
+      alert("You have chosen to include special characters");
     } else {
-      alert("You have chosen not to include special characters")
+      alert("You have chosen not to include special characters");
     }
-}
-  while (upperAlert === false && lowerAlert === false && numbersAlert === false && charactersAlert === false) {
-    }
-      console.log (chooseAlert);
-      console.log (upperAlert);
-      console.log (lowerAlert);
-      console.log (numbersAlert);
-      console.log (charactersAlert);
+  } while (
+    upperAlert === false &&
+    lowerAlert === false &&
+    numbersAlert === false &&
+    charactersAlert === false
+  );
 
+  console.log(chooseAlert);
+  console.log(upperAlert);
+  console.log(lowerAlert);
+  console.log(numbersAlert);
+  console.log(charactersAlert);
 
-  // make arrays, and then .concat based on user specified parameters
-  // making global for reference in multiple functions
+  // need to make arrays, and then .concat based on user specified parameters
   // thank you to will and jeremy for teaching me .split
   var lowerArr = "abcdefghijklmnopqrstuvwxyz".split("");
   var upperArr = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   var numbersArr = "0123456789".split("");
   var charactersArr = "!%&,*+-./<>?~".split("");
 
-  // variable must be an empty array so it can be filled by concats of selected arrays above ^^
+
+  // variable must be an empty array
   var passwordArray = [];
+
   // if alert variable is confirmed
+  // the corresponding array is concated into the passwordArray variable
   if (upperAlert === true) {
-    // the corresponding array is concated into the passwordArray variable
     passwordArray = passwordArray.concat(upperArr);
   }
 
@@ -104,15 +114,41 @@ function generatePassword() {
     passwordArray = passwordArray.concat(charactersArr);
   }
 
-  console.log(passwordArray);
+  console.log(passwordArray); 
 
-  // Math statement to randomize joined array
   var pass = "";
 
+  //this forces parameters to be used if they are selected, but takes out alot of randomness
   for (var i = 0; i < passLength; i++) {
-    pass = pass + passwordArray[Math.floor(Math.random() * passwordArray.length)];
-    console.log(pass);
+    if (upperAlert && pass.length < passLength) {
+      pass = pass + upperArr[Math.floor(Math.random() * upperArr.length)];
+    }
+    if (lowerAlert && pass.length < passLength) {
+      pass = pass + lowerArr[Math.floor(Math.random() * lowerArr.length)];
+    }
+    if (numbersAlert && pass.length < passLength) {
+      pass = pass + numbersArr[Math.floor(Math.random() * numbersArr.length)];
+    }
+    if (charactersAlert && pass.length < passLength) {
+      pass =
+        pass + charactersArr[Math.floor(Math.random() * charactersArr.length)];
+    }
   }
-  return pass;
+
+  // this takes the characters chosen above and splits, sorts, and combines them again into a different order
+  var randomPassword = pass.toString();
+  console.log(randomPassword);
+  splitPassword = randomPassword.split("");
+
+  shuffleArray(splitPassword);
+  console.log(splitPassword);
+
+  var finalPass = splitPassword.join("");
+  console.log(finalPass);
+
+  return finalPass;
 }
 
+function shuffleArray(inputArray) {
+  inputArray.sort(() => Math.random() - 0.05);
+}

@@ -1,3 +1,4 @@
+<img width="1440" alt="screenshot" src="https://user-images.githubusercontent.com/86039208/129411401-2307a5ad-140e-48c3-b931-1482dad338cd.png">
 
 Notes:
 Had a lot of trouble getting this to run, and even when it did, the code was sloppy.
@@ -22,9 +23,6 @@ https://spaceboundbear.github.io/UTSA-Week3-HW-MichaelFischer/
 
 Link to repository:
 https://github.com/spaceboundbear/UTSA-Week3-HW-MichaelFischer
-
-Screenshot:
-screenshot.png
 
 Homework Criteria::
 GIVEN I need a new, secure password
